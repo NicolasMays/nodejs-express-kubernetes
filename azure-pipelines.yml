@@ -12,7 +12,7 @@ steps:
 
 - checkout: self
   clean: true
-  path: $(Agent.BuildDirectory)
+  path: nodejs-express-kubernetes
   fetchDepth: 1
 
 - task: PowerShell@2
