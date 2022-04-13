@@ -1,0 +1,319 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "Node-API-Microservice",
+      "description": "",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "/"
+      }
+    ],
+    "tags": [
+      {
+        "name": "HealthCheck",
+        "description": "HealthCheck for Microservice"
+      },
+      {
+        "name": "System Info V1",
+        "description": "Supplies Hardware Information and Metrics"
+      }
+    ],
+    "paths": {
+      "/": {
+        "get": {
+          "tags": [
+            "HealthCheck"
+          ],
+          "summary": "Check if Microservice is Online",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string",
+                    "example": "<Hostmame> online"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1/cpuInfo": {
+        "get": {
+          "tags": [
+            "System Info V1"
+          ],
+          "summary": "Get all available CPU information",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/cpuInfo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1/cpuInfo/{info}": {
+        "get": {
+          "tags": [
+            "System Info V1"
+          ],
+          "summary": "Get specific CPU information",
+          "parameters": [
+            {
+              "name": "info",
+              "in": "path",
+              "description": "The CPU info to request, refer to the cpuInfo model for available info",
+              "required": true,
+              "schema": {}
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {}
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {}
+            }
+          }
+        }
+      },
+      "/v1/metrics": {
+        "get": {
+          "tags": [
+            "System Info V1"
+          ],
+          "summary": "Get all available metric routes.",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "route": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1/metrics/load": {
+        "get": {
+          "tags": [
+            "System Info V1"
+          ],
+          "summary": "Get all host cpu load information",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "avgLoad": {
+                        "type": "number"
+                      },
+                      "currentLoad": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1/metrics/memory": {
+        "get": {
+          "tags": [
+            "System Info V1"
+          ],
+          "summary": "Get all host memory information",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "total": {
+                        "type": "number"
+                      },
+                      "free": {
+                        "type": "number"
+                      },
+                      "used": {
+                        "type": "number"
+                      },
+                      "available": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "cpuInfo": {
+          "type": "object",
+          "properties": {
+            "manufacturer": {
+              "type": "string"
+            },
+            "brand": {
+              "type": "string"
+            },
+            "vendor": {
+              "type": "string"
+            },
+            "family": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "stepping": {
+              "type": "string"
+            },
+            "revision": {
+              "type": "string"
+            },
+            "voltage": {
+              "type": "string"
+            },
+            "speed": {
+              "type": "number"
+            },
+            "speedMin": {
+              "type": "number"
+            },
+            "speedMax": {
+              "type": "number"
+            },
+            "governor": {
+              "type": "string"
+            },
+            "cores": {
+              "type": "integer"
+            },
+            "physicalCores": {
+              "type": "integer"
+            },
+            "processors": {
+              "type": "integer"
+            },
+            "socket": {
+              "type": "string"
+            },
+            "flags": {
+              "type": "string"
+            },
+            "virtualization": {
+              "type": "boolean"
+            },
+            "cache": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        },
+        "metrics": {
+          "type": "object",
+          "properties": {
+            "metric routes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "route": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "load": {
+          "type": "object",
+          "properties": {
+            "load info": {
+              "type": "object",
+              "properties": {
+                "avgLoad": {
+                  "type": "number"
+                },
+                "currentLoad": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "memory": {
+          "type": "object",
+          "properties": {
+            "memory info": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "number"
+                },
+                "free": {
+                  "type": "number"
+                },
+                "used": {
+                  "type": "number"
+                },
+                "available": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
