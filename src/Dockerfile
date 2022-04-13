@@ -3,6 +3,7 @@ FROM node:14.15.3-buster-slim
 # Dependencies and EntryPoint
 COPY package*.json ./
 COPY app.js ./
+COPY swagger.json ./
 
 ARG PORT 
 ARG VER
