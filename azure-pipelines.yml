@@ -12,6 +12,7 @@ steps:
 
 - checkout: self
   clean: true
+  path: $(Agent.BuildDirectory)
   fetchDepth: 1
 
 - task: PowerShell@2
