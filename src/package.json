@@ -1,0 +1,25 @@
+{
+  "name": "node-api-microservice",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha --timeout 7500",
+    "start": "node app.js"
+  },
+  "author": "NicMays",
+  "license": "MIT",
+  "dependencies": {
+    "applicationinsights": "^2.2.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "swagger-ui-express": "^4.1.6",
+    "systeminformation": "^5.8.6"
+  },
+  "description": "Sample Backend Microservice for Node and K8s",
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-arrays": "^2.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^9.1.1"
+  }
+}
