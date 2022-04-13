@@ -5,7 +5,7 @@ const swaggerDocument = require('./swagger.json');
 require('dotenv').config();
 
 const app = express()
-const port = process.env.PORT || 80
+const port = process.env.PORT || 3000
 
 const apiVersion = process.env.VER || 'v1'
 
