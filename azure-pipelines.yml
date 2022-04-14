@@ -37,7 +37,7 @@ steps:
   displayName: Docker-Compose Push Node Api Container Image
   inputs:
     containerregistrytype: 'Azure Container Registry'
-    azureSubscription: '$(TargetSubscriptionConnection)'
+    azureSubscription: 'nicmaysAIRS'
     azureContainerRegistry: '{"loginServer":"nodesamplebackend.azurecr.io", "id" : "/subscriptions/4256b5a8-3f53-49ca-a84e-b58edb60b4e1/resourceGroups/APIM-PG/providers/Microsoft.ContainerRegistry/registries/nodesamplebackend"}'
     dockerComposeFile: "$(Agent.BuildDirectory)/nodejs-express-kubernetes/src/docker-compose-node-api-app-service.yml"
     action: 'Push services'
