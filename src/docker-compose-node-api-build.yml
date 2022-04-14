@@ -2,7 +2,7 @@ version: '3'
 services:
   node-api-micro:
     build: .
-    image: node-api-micro
+    image: nodejs-express-sample
     container_name: node-api-micro
     ports:
       - "3000:3000"
