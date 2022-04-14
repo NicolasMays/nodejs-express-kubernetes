@@ -44,8 +44,7 @@ steps:
     additionalImageTags: '$(Build.BuildId)'
 
 - task: AzureWebAppContainer@1
-  displayName: 'Deploy Node App'
   inputs:
     azureSubscription: 'nicmaysAIRS'
     appName: 'nodesamplebackend'
-    multicontainerConfigFile: "$(Agent.BuildDirectory)/nodejs-express-kubernetes/src/docker-compose-node-api-app-service.yml"
+    containers: 'nodesamplebackend.azurecr.io/nodejs-express-sample'
