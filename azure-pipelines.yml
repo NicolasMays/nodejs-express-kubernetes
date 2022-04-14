@@ -15,13 +15,33 @@ steps:
   path: nodejs-express-kubernetes
   fetchDepth: 1
 
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: 'ls -r'
+    workingDirectory: '$(Agent.BuildDirectory)'
+
 - task: DockerCompose@0
+  name: BuildNodeApiContainerImage
+  displayName: Docker-Compose Build Node Api Container Image
   inputs:
     containerregistrytype: 'Azure Container Registry'
     azureSubscription: 'nicmaysAIRS'
     azureContainerRegistry: '{"loginServer":"nodesamplebackend.azurecr.io", "id" : "/subscriptions/4256b5a8-3f53-49ca-a84e-b58edb60b4e1/resourceGroups/APIM-PG/providers/Microsoft.ContainerRegistry/registries/nodesamplebackend"}'
     dockerComposeFile: "$(Agent.BuildDirectory)/nodejs-express-kubernetes/src/docker-compose-node-api-build.yml"
-    action: 'Run a Docker Compose command'
+    action: 'Build services'
+    additionalImageTags: '$(Build.BuildId)'
+    
+- task: DockerCompose@0
+  name: PushNodeApiContainerImage
+  displayName: Docker-Compose Push Node Api Container Image
+  inputs:
+    containerregistrytype: 'Azure Container Registry'
+    azureSubscription: '$(TargetSubscriptionConnection)'
+    azureContainerRegistry: '{"loginServer":"nodesamplebackend.azurecr.io", "id" : "/subscriptions/4256b5a8-3f53-49ca-a84e-b58edb60b4e1/resourceGroups/APIM-PG/providers/Microsoft.ContainerRegistry/registries/nodesamplebackend"}'
+    dockerComposeFile: "$(Agent.BuildDirectory)/nodejs-express-kubernetes/src/docker-compose-node-api-app-service.yml"
+    action: 'Push services'
+    additionalImageTags: '$(Build.BuildId)'
 
 - task: AzureWebAppContainer@1
   displayName: 'Deploy Node App'
